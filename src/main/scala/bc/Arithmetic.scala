@@ -11,21 +11,21 @@ trait MyAdder {
     def out: UInt
 }
 
-class Adder(w: Int) extends RawModule with MyAdder {
-    val in1 = IO(Input(UInt(w.W)))
-    val in2 = IO(Input(UInt(w.W)))
-    val out = IO(Output(UInt(w.W)))
+class Adder extends RawModule with MyAdder {
+    val in1 = IO(Input(UInt()))
+    val in2 = IO(Input(UInt()))
+    val out = IO(Output(UInt()))
     out := in1 + in2
 }
 
-class Subs(w: Int) extends RawModule with MyAdder {
-    val in1 = IO(Input(UInt(w.W)))
-    val in2 = IO(Input(UInt(w.W)))
-    val out = IO(Output(UInt(w.W)))
+class Subs extends RawModule with MyAdder {
+    val in1 = IO(Input(UInt()))
+    val in2 = IO(Input(UInt()))
+    val out = IO(Output(UInt()))
     out := in1 - in2
 }
 
-class FalBinaryCounter[T <: BaseModule with MyAdder] (w: Int, op: => T) extends Module {
+class FalBinaryCounter[T <: BaseModule with MyAdder, A] (w: Int, op: => T = new Adder) extends Module {
   val io = IO(new Bundle {
     val clr = Input(Bool())
     val out = Output(UInt(w.W))

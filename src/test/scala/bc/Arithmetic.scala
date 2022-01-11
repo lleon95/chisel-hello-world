@@ -3,14 +3,15 @@ package fal_arithmetic
 import chisel3._
 import chiseltest._
 import org.scalatest.flatspec.AnyFlatSpec
+import chisel3.stage.ChiselStage
 
 // INFO: https://www.chisel-lang.org/chiseltest/
 
 class FalBinaryCounterTest extends AnyFlatSpec with ChiselScalatestTester {
   behavior of "BinaryCounter"
-
+  
   it should "count down" in {
-    test(new FalBinaryCounter(4, new Subs(4))) { dut =>
+    test(new FalBinaryCounter(4, new Subs)) { dut =>
       println("Counter clearing...")
 
       dut.io.clr.poke(true.B)
@@ -26,7 +27,7 @@ class FalBinaryCounterTest extends AnyFlatSpec with ChiselScalatestTester {
     }
   }
   it should "count up" in {
-    test(new FalBinaryCounter(4, new Adder(4))) { dut =>
+    test(new FalBinaryCounter(4, new Adder)) { dut =>
       println("Counter clearing...")
 
       dut.io.clr.poke(true.B)
@@ -41,4 +42,5 @@ class FalBinaryCounterTest extends AnyFlatSpec with ChiselScalatestTester {
       }
     }
   }
+
 }
